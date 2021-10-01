@@ -1,0 +1,34 @@
+
+<div class="main-container">
+    <div class="left">
+        <ul *ngIf="initialItems">
+            <li *ngFor="let i of initialItems">
+                <ng-container *ngIf="i.children; else noChildren">
+                    <div class="folder" (click)="printChildren( i.path )">
+                        {{i.name}}
+                    </div>
+                </ng-container>
+                <ng-template #noChildren>
+                    <div (click)="editTextEditorContent( i.path, $event )">
+                        {{i.name}}
+                    </div>
+                </ng-template>
+            </li>
+        </ul>
+        <ul *ngIf="childrenItems">
+            <li *ngFor="let i of childrenItems">
+                <ng-container *ngIf="i.children; else noChildren">
+                    <div class="folder" (click)="printChildren( i.path )">
+                        {{i.name}}
+                    </div>
+                </ng-container>
+                <ng-template #noChildren>
+                    {{i.name}}
+                </ng-template>
+            </li>
+        </ul>
+    </div>
+    <div class="right">
+        <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+    </div>
+</div>
